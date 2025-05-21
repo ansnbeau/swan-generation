@@ -474,9 +474,7 @@ sensor_lhs ::= path_id
 local_objects ::= ("where" object_l)?
 
 # Optional
-group_operation_o ::= (("(" ")")
- | "byname"
- | "bypos")?
+group_operation_o ::= (("(" ")") | "byname" | "bypos"
 
 connection_l ::= connection
  | (connection_l "," connection)

@@ -12,9 +12,9 @@ if __name__ == "__main__":
     print(f"Using device: {device}")
 
     # Model identifier
-    model_id = "facebook/opt-125m"
+    model_id = "Qwen/Qwen2.5-0.5B"
 
-    GRAMMAR_PATH = "grammar/swan_grammar.txt"
+    GRAMMAR_PATH = "grammars/swan_grammar_nath.ebnf"
     # Load model and tokenizer
     tokenizer = AutoTokenizer.from_pretrained(model_id)
     tokenizer.pad_token = tokenizer.eos_token
@@ -22,17 +22,17 @@ if __name__ == "__main__":
     model.generation_config.pad_token_id = model.generation_config.eos_token_id
 
 
-    # Load grammar from file
+    # Load grammars from file
     with open(GRAMMAR_PATH, "r", encoding="utf-8") as f:
         grammar_str = f.read()
 
-    # Create grammar constraint and logits processor
+    # Create grammars constraint and logits processor
     grammar = IncrementalGrammarConstraint(grammar_str, "root", tokenizer)
     grammar_processor = GrammarConstrainedLogitsProcessor(grammar)
 
     # Define prompts
     prompts = [
-        'Generate the swan code to compute the matrix product between A(m, n) and B(n, p) with the function MatProd_1'
+        'Write an equation x + y = c '
     ]
 
     # Tokenize prompts
@@ -41,7 +41,7 @@ if __name__ == "__main__":
     # Generate constrained text
     output = model.generate(
         input_ids,
-        max_length=50,
+        max_new_tokens=50,
         logits_processor=[grammar_processor],
         repetition_penalty=1.1,
         num_return_sequences=1,
