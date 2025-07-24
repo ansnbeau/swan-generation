@@ -12,7 +12,7 @@ if __name__ == "__main__":
     print(f"Using device: {device}")
 
     # Model identifier
-    model_id = "Qwen/Qwen2.5-0.5B"
+    model_id = "Qwen/Qwen3-7B"
 
     GRAMMAR_PATH = "grammars/swan_grammar_nath.ebnf"
     # Load model and tokenizer
@@ -32,7 +32,7 @@ if __name__ == "__main__":
 
     # Define prompts
     prompts = [
-        'Write an equation x + y = c '
+        'Write an equation x + y = c'
     ]
 
     # Tokenize prompts
@@ -52,4 +52,3 @@ if __name__ == "__main__":
     for generation in generations:
         print(generation)
 
-# The animal is a cat.
