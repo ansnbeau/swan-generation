@@ -225,14 +225,14 @@ results/2025-08-25_14-31-09__tasks-nl2swan-inline__n6__p9999/
 └─ summary.json         # ONE unified report (metrics + run info + GCD/thinking usage)
 ```
 
-### `results.csv` columns (key ones)
+#### `results.csv` columns (key ones)
 - `model`, `task`, `prompt_name`, `sample_id`, `name` 
 - `pred`, `ref`
 - **metrics**: `exact_match`, `token_f1` (NL → Swan only), `edit_sim`
 - **perf**: `latency_ms`
 - **meta**: `gcd_used`, `thinking_enabled` (if applicable)
 
-### `summary.json` (**unified report**)
+#### `summary.json` (**unified report**)
 
 Contains:
 - `run` (paths, tasks, prompts used)
