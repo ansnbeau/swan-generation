@@ -4,9 +4,9 @@ Each entry contains:
 
 ```code 
 {
-  "id": "<name>__all_in_one_swan_inline",
+  "id": "<name>",
   "name": "<name>",
-  "nl_description": "<high-quality description aligned with C>",
+  "nl_description": "<description aligned with C>",
   "swan": "<Swan code>",
   "c_code": "<C code>",
   "inline": {
