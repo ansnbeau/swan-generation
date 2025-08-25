@@ -1,0 +1,64 @@
+Swan quick intro (what & why)
+Swan is a synchronous, typed data-flow language used to define operators (either a node or a function) with explicit inputs/outputs and equations. A module can contain type/const/sensor declarations and user-defined operators whose signatures look like:
+
+  node|function <name> (inputs) returns (outputs) ...
+
+In the core language, types include booleans, sized integers, and floats (e.g., bool, int8/int16/int32/int64, uint8/uint16/uint32/uint64, float32/float64, char). User operators are declared with a header and then either “;” (declaration only) or a body with equations. (Diagrams, groups, automata, iterators, etc., exist in Swan, but we are NOT using them in this task.)
+
+— Mini reference (subset we will use) —
+Header forms (with exact spacing):
+  node <id> (<params>) returns (<params>) ;
+  node <id> (<params>) returns (<params>) <equations>
+  function <id> (<params>) returns (<params>) ;
+  function <id> (<params>) returns (<params>) <equations>
+
+Params:
+  <params> ::= <param_item> (", " <param_item>)*
+  <param_item> ::= <id> ": " <type>
+  <type> ::= bool | int8 | int16 | int32 | int64 | uint8 | uint16 | uint32 | uint64 | float32 | float64 | char
+
+Equations block (textual definition):
+  One or more equations, each on one line and ending with a semicolon:
+    <id> " = " <expr> ";"
+  Expressions allowed:
+    primary arithmetic only, parentheses, and binary ops:
+    +  -  *  /  mod
+  Formatting of binary ops is strict: a single space on each side, e.g.  a + b, x / 3, y mod 2
+
+Identifiers and numbers:
+  <id> = [a-zA-Z_][a-zA-Z0-9_]*
+  <number> = [0-9]+
+
+— Formatting rules (strict; important for constrained decoding) —
+1) Put exactly one space after the keyword “node ” or “function ” before the name.
+2) In parameter lists: separate items with “, ” (comma + single space).
+3) In each parameter: write “name: type” with exactly “: ” (colon + single space).
+4) Between “returns” and its list: write exactly “ returns ” (single leading/trailing space).
+5) In equations: write “name = expr;” with exactly “ = ” (single space around =), and terminate with “;”.
+6) Surround +, -, *, /, mod with single spaces.
+7) You may put each equation on its own line. No comments or extra prose.
+
+— Examples (valid with this subset) —
+Example 1: declaration only
+  function abs_i32 (x: int32) returns (y: int32);
+
+Example 2: simple sum as a function
+  function sum3 (a: float32, b: float32, c: float32) returns (s: float32)
+  s = a + b + c;
+
+Example 3: average as a node
+  node mean3 (a: float32, b: float32, c: float32) returns (m: float32)
+  m = (a + b + c) / 3;
+
+Example 4: integer clamp
+  function clamp_u8 (x: uint8, lo: uint8, hi: uint8) returns (y: uint8)
+  y = (x + (lo + hi)) / 2;  # NOTE: If your grammar forbids comments, omit this line entirely.
+
+— How to answer —
+• When grammar-constrained decoding is enabled, output ONLY the Swan code that matches the subset above. Do not add explanations, comments, quotes, or markdown.
+• Prefer readable names and keep equations as simple as possible.
+• If the task asks for a node, use “node … returns …” form; if it asks for a function, use “function … returns …”.
+• Always terminate a declaration-only header with “;”, otherwise follow the header by one or more well-formed equations.
+
+Task (filled by the calling script)
+«The next user message will describe the operator to write (kind, names, types, and behavior). Produce only the Swan code in the subset above.»

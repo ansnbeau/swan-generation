@@ -6,7 +6,7 @@ module_interface_file ::= use_clause* interface_decls* EOF
 
 use_clause ::= ("use" path_id "as" ID ";")
 
-path_id ::= ID | (path_id "::" ID)
+path_id ::= ID ("::" ID)*
 
 ID ::= WORD
 
@@ -22,17 +22,17 @@ op_kind ::= "function" | "node"
 
 size_decl_o ::= ("<<" id_or_l ">>")?
 
-id_or_l ::= ID | (id_or_l "," ID)
+id_or_l ::= ID ("," ID)*
 
 params ::= ("(" ")") | ("(" var_decl_l SC_o ")")
 
 SC_o ::= ";"?
 
-where_decls_o ::= (where_decls_o where_decl)?
+where_decls_o ::= where_decl*
 
 where_decl ::= ("where" typevar_l numeric_kind)
 
-typevar_l ::= typevar | (typevar_l "," typevar)
+typevar_l ::= typevar ("," typevar)*
 
 typevar ::= NAME
 
@@ -48,13 +48,13 @@ data_def ::= equation | scope
 
 scope ::= "{" scope_section_l "}"
 
-scope_section_l ::= (scope_section_l scope_section)?
+scope_section_l ::= scope_section+
 
 scope_section ::= variable_section | equation_section | emission_section | assert_section | diagram_section
 
 diagram_section ::= "diagram" object_l
 
-object_l ::= (object_l object)?
+object_l ::= object+
 
 object ::= "(" description local_objects ")"
 
@@ -72,13 +72,13 @@ select_activation ::= ("activate" luid_o if_activation) | ("activate" luid_o mat
 
 if_activation ::= "if" expr "then" ifte_branch elsif_branch_l "else" ifte_branch
 
-elsif_branch_l ::= (elsif_branch_l "elsif" expr "then" ifte_branch)?
+elsif_branch_l ::= ("elsif" expr "then" ifte_branch)*
 
 ifte_branch ::= data_def | if_activation
 
 match_activation ::= "when" expr "match" match_l
 
-match_l ::= match | (match_l match)
+match_l ::= match+
 
 match ::= "|" pattern_with_capture ":" data_def
 
@@ -88,13 +88,13 @@ lhs_o ::= (lhs ":")?
 
 lhs ::= ("(" ")") | lhs_item_l | (lhs_item_l "," "..")
 
-lhs_item_l ::= lhs_item | (lhs_item_l "," lhs_item)
+lhs_item_l ::= lhs_item ("," lhs_item)*
 
 lhs_item ::= ID | "_"
 
 state_machine ::= "automaton" luid_o state_machine_item_l
 
-state_machine_item_l ::= (state_machine_item_l state_machine_item)?
+state_machine_item_l ::= state_machine_item+
 
 state_machine_item ::= state_decl | transition_decl
 
@@ -108,7 +108,7 @@ unless_o ::= ("unless" transition_l)?
 
 until_o ::= ("until" transition_l)?
 
-transition_l ::= transition | (transition_l transition)
+transition_l ::= transition+
 
 transition_decl ::= (priority state_ref "unless" transition) | (priority state_ref "until" transition)
 
@@ -128,11 +128,11 @@ target ::= ("restart" state_ref) | ("resume" state_ref)
 
 fork ::= ("if" guarded_arrow elsif_guarded_arrow_l else_arrow_o "end") | (fork_priority_l "end")
 
-elsif_guarded_arrow_l ::= (elsif_guarded_arrow_l "elsif" guarded_arrow)?
+elsif_guarded_arrow_l ::= ("elsif" guarded_arrow)*
 
 else_arrow_o ::= ("else" arrow)?
 
-fork_priority_l ::= (fork_priority_l fork_priority)?
+fork_priority_l ::= fork_priority+
 
 fork_priority ::= (priority "if" guarded_arrow) | (priority "else" arrow)
 
@@ -146,7 +146,7 @@ group_operation_o ::= ("(" ")") | "byname" | "bypos"
 
 connection ::= (port group_adaptation) | port | ("(" ")")
 
-connection_l ::= connection | (connection_l "," connection)
+connection_l ::= connection ("," connection)*
 
 port ::= instance_id
 
@@ -160,11 +160,11 @@ prefix_op ::= path_id | prefix_primitive | ("(" op_expr ")") | ("(" "op_expr" ")
 
 prefix_primitive ::= "reverse" | "transpose" | ("transpose" "{" integer_l "}") | "pack" | "flatten"
 
-integer_l ::= INTEGER_LIT | (integer_l "," INTEGER_LIT)
+integer_l ::= INTEGER_LIT ("," INTEGER_LIT)*
 
 size_spec_o ::= ("<<" expr_list ">>")?
 
-expr_list ::= expr | (expr_list "," expr)
+expr_list ::= expr ("," expr)*
 
 op_expr ::= (iterator operator) | ("activate" operator "every" clock_expr) | ("activate" operator "every" expr activate_condition_kind expr) | ("restart" operator "every" expr) | anonymous_op | (operator "\\" partial_group) | n_ary_op | ("_source" ID) | ("_oracle" ID)
 
@@ -174,25 +174,25 @@ anonymous_op ::= (op_kind params "returns" params data_def) | (op_kind id_l scop
 
 iterator ::= "map" | "fold" | "mapfold" | "mapi" | "foldi" | "mapfoldi"
 
-id_l ::= ID | (id_l "," ID)
+id_l ::= ID ("," ID)*
 
-partial_group ::= opt_group_item | (partial_group "," opt_group_item)
+partial_group ::= opt_group_item ("," opt_group_item)*
 
 opt_group_item ::= "_" | group_item
 
 emission_section ::= "emit" emission_body_l_o
 
-emission_body_l_o ::= (emission_body_l_o emission_body ";")?
+emission_body_l_o ::= (emission_body ";")*
 
 emission_body ::= (luid_o flow_names) | (luid_o flow_names "if" expr)
 
-flow_names ::= NAME | (flow_names "," NAME)
+flow_names ::= NAME ("," NAME)*
 
 variable_section ::= "var" var_decl_l_o
 
 var_decl_l_o ::= (var_decl_l ";")?
 
-var_decl_l ::= var_decl | (var_decl_l ";" var_decl)
+var_decl_l ::= var_decl (";" var_decl)*
 
 var_decl ::= (var_id var_type_expr_o when_decl_o default_decl_o last_decl_o)
 
@@ -200,9 +200,9 @@ var_type_expr_o ::= (":" group_type_expr)?
 
 group_type_expr ::= type_expr | ("(" group_type_expr_l id_group_type_l_o ")")  | ("(" id_group_type_expr_l ")")
 
-group_type_expr_l ::= group_type_expr | (group_type_expr_l "," group_type_expr)
+group_type_expr_l ::= group_type_expr ("," group_type_expr)*
 
-id_group_type_expr_l ::= id_group_type_expr | (id_group_type_expr_l "," id_group_type_expr)
+id_group_type_expr_l ::= id_group_type_expr ("," id_group_type_expr)*
 
 id_group_type_expr ::= ID ":" group_type_expr
 
@@ -220,23 +220,17 @@ equation_section ::= "let" equation_l_o
 
 equation_l_o ::= equation_l?
 
-equation_l ::= equation | (equation_l equation)
+equation_l ::= equation+
 
 assert_section ::= assert_kind verif_expr_l
 
 assert_kind ::= "assert" | "assume" | "guarantee"
 
-verif_expr_l ::= (verif_expr_l verif_expr)?
+verif_expr_l ::= verif_expr*
 
 verif_expr ::= LUID ":" expr ";"
 
 equation ::= (lhs luid_o "=" expr ";") | (def_by_case ";")
-
-lhs ::= ("(" ")") | lhs_item_l | (lhs_item_l "," "..")
-
-lhs_item_l ::= lhs_item | (lhs_item_l "," lhs_item)
-
-lhs_item ::= ID | "_"
 
 luid_o ::= LUID?
 
@@ -244,7 +238,23 @@ LUID ::= "$" ID
 
 luid ::= LUID
 
-expr ::= id_expr | atom | (unary_op expr) | (expr binary_op expr) | (expr "when" clock_expr) | (expr "when" "match" path_id) | ("(" expr ":>" type_expr ")") | group_expr | composite_expr | switch_expr | fwd_expr | (operator_instance "(" group ")") | port | multigroup_prefix
+expr ::= when_expr
+
+when_expr ::= or_expr ( ("when" clock_expr) | ("when" "match" path_id) )*
+
+or_expr ::= and_expr ( ("lor" | "or" | "xor" | "lxor") and_expr )*
+and_expr ::= rel_expr ( ("land" | "and") rel_expr )*
+rel_expr ::= add_expr ( ("=" | "<>" | "<" | ">" | "<=" | ">=") add_expr )*
+add_expr ::= mul_expr ( ("+" | "-") mul_expr )*
+mul_expr ::= pow_expr ( ("*" | "/" | "mod" | "lsl" | "lsr" | "@") pow_expr )*
+pow_expr ::= unary_expr ( "^" unary_expr )*     # right-ish assoc but no LR
+
+unary_expr ::= ("-" | "+" | "lnot" | "not" | "pre") unary_expr | postfix_expr
+
+# postfixes that used to cause LR via composite_expr/group_expr
+postfix_expr ::= primary ( label_or_index | group_adaptation | "[" expr ".." expr "]" )*
+
+primary ::= id_expr | atom | "(" expr ")" | "(" expr ":>" type_expr ")" | "[" group "]" | struct_expr | variant_expr | switch_expr | fwd_expr | operator "(" group ")" | port | multigroup_prefix
 
 id_expr ::= path_id | ("last" NAME)
 
@@ -260,13 +270,15 @@ clock_expr ::= ID | ("not" ID) | ("(" ID "match" pattern ")")
 
 pattern ::= path_id | (path_id "_") | (path_id "{" "}") | CHAR_LIT | INTEGER_LIT | ("-" INTEGER_LIT) | TYPED_INTEGER_LIT | ("-" TYPED_INTEGER_LIT) | "true" | "false" | "_" | "default"
 
-type_expr ::= "bool" | ("signed" "<<" expr ">>") | "int8" | "int16" | "int32" | "int64" | ("unsigned" "<<" expr ">>") | "uint8" | "uint16" | "uint32" | "uint64" | "float32" | "float64" | "char" | path_id | typevar | (type_expr "^" expr)
+type_expr ::= base_type ("^" expr)*
 
-group_expr ::= ("(" group ")") | (expr group_adaptation)
+base_type ::= "bool" | "signed" "<<" expr ">>" | "int8" | "int16" | "int32" | "int64" | "unsigned" "<<" expr ">>" | "uint8" | "uint16" | "uint32" | "uint64" | "float32" | "float64" | "char" | path_id | typevar
 
-group ::= group_item_list?
+group_expr ::= ("(" group ")")
 
-group_item_list ::= group_item | (group_item_list "," group_item)
+group ::= group_item_list
+
+group_item_list ::= group_item ("," group_item)*
 
 group_item ::= expr | label_expr
 
@@ -274,29 +286,29 @@ group_adaptation ::= ("." "(" group_renamings_o ")")
 
 group_renamings_o ::= group_renamings?
 
-group_renamings ::= renaming | (group_renamings "," renaming)
+group_renamings ::= renaming ("," renaming)*
 
 renaming ::= id | (id ":") | (id ":" id) | INTEGER_LIT | (INTEGER_LIT ":") | (INTEGER_LIT ":" id)
 
 label_expr ::= ID ":" expr
 
-composite_expr ::= (expr label_or_index) | (path_id "group" "(" expr ")") | (expr "[" expr ".." expr "]") | ("(" expr "." label_or_index_l "default" expr ")") | (expr "^" expr) | ("[" group "]") | struct_expr | variant_expr | ("(" expr "with" modifier_l SC_o ")")
+composite_expr ::= (path_id "group" "(" expr ")") | "(" expr "." label_or_index_l "default" expr ")" | "[" group "]" | struct_expr | variant_expr | "(" expr "with" modifier_l SC_o ")"
 
 label_or_index ::= ("." ID) | ("[" expr "]")
 
-label_or_index_l ::= label_or_index | (label_or_index_l label_or_index)
+label_or_index_l ::= label_or_index+
 
 struct_expr ::= ("{" group "}") | ("{" group "}" ":" path_id)
 
 variant_expr ::= path_id "{" group "}"
 
-modifier_l ::= modifier | (modifier_l ";" modifier)
+modifier_l ::= modifier (";" modifier)*
 
 modifier ::= (label_or_index_l "=" expr)
 
 switch_expr ::= ("if" expr "then" expr "else" expr) # %prec if_then_else | ("(" "case" expr "of" case_expr_l ")")
 
-case_expr_l ::= case_expr | (case_expr_l case_expr)
+case_expr_l ::= case_expr+
 
 case_expr ::= "|" pattern ":" expr
 
@@ -306,13 +318,13 @@ fwd_restart_resume ::= ("restart" | "resume")?
 
 dim_l_o ::= dim_l
 
-dim_l ::= dim | (dim_l dim)
+dim_l ::= dim+
 
 dim ::= ("<<" expr ">>" dim_with) | ("<<" expr ">>") | "dim"
 
 dim_with ::= ("with" "<<" ID ">>" current_elt_l) | ("with" current_elt_nel)
 
-current_elt_nel ::= current_elt | (current_elt_nel current_elt)
+current_elt_nel ::= current_elt+
 
 current_elt_l ::= current_elt_nel?
 
@@ -355,3 +367,6 @@ EXPONENT ::= ("e" | "E") ("+" | "-")? DIGIT10+
 FLOAT1 ::= DIGIT10+ "." DIGIT10* EXPONENT?
 FLOAT2 ::= DIGIT10* "." DIGIT10+ EXPONENT?
 LUNUM ::= "#" DIGIT10+
+id ::= ID
+operator_instance ::= operator
+returns_group ::= group

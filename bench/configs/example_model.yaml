@@ -1,0 +1,37 @@
+- name: azure-gpt4o-example
+  provider: azure-openai
+  model: GPT-4o
+  api_base: https://YOUR-RESOURCE-NAME.openai.azure.com/
+  api_version: 2024-05-01-preview
+  api_key: "<ADD_YOUR_KEY_HERE>"
+
+- name: azure-o1-example
+  provider: azure-openai
+  model: o1
+  api_base: https://YOUR-RESOURCE-NAME.openai.azure.com/
+  api_version: 2024-12-01-preview
+  api_key: "<ADD_YOUR_KEY_HERE>"
+
+# Hugging Face (local) — Qwen plain
+- name: qwen3-4b-instruct
+  provider: hf-local
+  model: Qwen/Qwen3-4B-Instruct
+  temperature: 0.0
+  top_p: 1.0
+  do_sample: false
+  enable_thinking: true
+
+# Hugging Face (local) — Qwen with GCD for NL→Swan only
+- name: qwen3-8b-instruct-gcd
+  provider: hf-local
+  model: Qwen/Qwen3-8B-Instruct
+  temperature: 0.0
+  top_p: 1.0
+  do_sample: false
+  use_gcd: true
+  grammar_path: ./grammars/grammar_function_node.ebnf
+  start_rule: root
+  gcd_tasks: [nl2swan]       # constrain only NL→Swan
+  max_new_tokens: 256
+  repetition_penalty: 1.05
+  enable_thinking: false

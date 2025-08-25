@@ -1,0 +1,35 @@
+# Python
+../.venv/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.egg-info/
+dist/
+build/
+
+# Editors/OS
+.DS_Store
+.idea/
+.vscode/
+.ipynb_checkpoints/
+
+# Results / caches
+configs/models.yaml
+results/
+*.cache
+.cache/
+HF_HOME/
+huggingface/
+__huggingface_cache__/
+
+
+# Local data & secrets
+.env
+*.secrets.*
+models.local.yaml
+configs/*secrets*.yaml
+
+# Logs
+*.log
+logs/
