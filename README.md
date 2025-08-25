@@ -79,8 +79,6 @@ swan-generation/
 ├─ grammars/
 │  └─ grammar_function_node.ebnf  # optional GCD grammar
 ├─ results/                       # per-run folders (gitignored)
-├─ scripts/
-│  └─ validate_dataset.py
 ├─ requirements.txt
 └─ README.md
 ```
