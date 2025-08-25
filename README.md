@@ -216,7 +216,7 @@ gcd_tasks: [nl2swan]
 Each run writes a timestamped folder:
 
 ```
-results/2025-08-25_14-31-09__tasks-nl2swan-inline__n6__p9999/
+results/2025-08-25_14-31-09__tasks-nl2swan-inline__n6/
 ├─ run_info.json        # manifest: prompts used, models (sanitized), paths…
 ├─ results.csv          # per (model × task × prompt × sample) row
 ├─ results.jsonl        # same, as JSONL
