@@ -35,7 +35,7 @@ pip install -r requirements.txt     # transformers, openai, etc.
 # 3) Run with all prompts
 python -m bench.benchmark_swan \
   --data data/processed/examples.json \
-  --models configs/models.yaml \
+  --models configs/example_model.yaml \
   --tasks nl2swan,inline \
   --prompts-dir ./prompts \
   --prompt-select-nl2swan all \
