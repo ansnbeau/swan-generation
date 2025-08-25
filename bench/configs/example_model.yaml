@@ -13,18 +13,18 @@
   api_key: "<ADD_YOUR_KEY_HERE>"
 
 # Hugging Face (local) — Qwen plain
-- name: qwen3-4b-instruct
+- name: qwen3-4b
   provider: hf-local
-  model: Qwen/Qwen3-4B-Instruct
+  model: Qwen/Qwen3-4B
   temperature: 0.0
   top_p: 1.0
   do_sample: false
   enable_thinking: true
 
 # Hugging Face (local) — Qwen with GCD for NL→Swan only
-- name: qwen3-8b-instruct-gcd
+- name: qwen3-8b
   provider: hf-local
-  model: Qwen/Qwen3-8B-Instruct
+  model: Qwen/Qwen3-8B
   temperature: 0.0
   top_p: 1.0
   do_sample: false
