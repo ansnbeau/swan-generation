@@ -67,7 +67,7 @@ class HFLocalModel:
     """
     params:
       model: HF repo id
-      do_sample, temperature, top_p, repetition_penalty, max_new_tokens
+      do_sample, top_p, repetition_penalty, max_new_tokens
       use_gcd: bool
       grammar_path: str
       start_rule: str
@@ -111,8 +111,6 @@ class HFLocalModel:
         return dict(
             max_new_tokens=int(self.params.get("max_new_tokens", max_tokens)),
             do_sample=bool(self.params.get("do_sample", False)),
-            temperature=float(self.params.get("temperature", 0.0)),
-            top_p=float(self.params.get("top_p", 1.0)),
             repetition_penalty=float(self.params.get("repetition_penalty", 1.0)),
             eos_token_id=self.tokenizer.eos_token_id,
             pad_token_id=self.tokenizer.pad_token_id,

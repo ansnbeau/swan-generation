@@ -158,7 +158,7 @@ def main():
                         continue
 
                     # Debug line (optional)
-                    # print(f"[run] task={task} model={mdl.name} sample={smp.id} prompts={len(plist)} -> {fnames}")
+                    print(f"[run] task={task} model={mdl.name} sample={smp.id} prompts={len(plist)} -> {fnames}")
 
                     if task == "nl2swan":
                         for i, phr in enumerate(plist, 1):
