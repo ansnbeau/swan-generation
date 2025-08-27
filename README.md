@@ -135,12 +135,11 @@ prompts/
 ```
 
 - You can select all, a list by name, or globs per task at run time.
-
 - Empty files and dot/underscore-prefixed files are skipped.
 
 ## 5) Run the benchmark
 
-Common flags
+Common flags:
 
 - `--data`: path to JSON dataset
 - `--models`: path to models config YAML
@@ -192,9 +191,7 @@ gcd_tasks: [nl2swan]
 ```
 
 - The adapter passes the **HF tokenizer** to `IncrementalGrammarConstraint`.
-
 - We rebuild the logits processor per generation (avoids state carry-over).
-
 - Ensure your prompt style matches the grammar’s language (e.g., avoid forcing markdown fences if the grammar doesn’t allow backticks).
 
 **How to know it was used?**:
