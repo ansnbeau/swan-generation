@@ -33,14 +33,14 @@ pip install -r requirements.txt     # transformers, openai, etc.
 # configs/models.yaml
 
 # 3) Run with all prompts
-python -m benchmark_swan \
-  --data data/examples.json \
-  --models configs/example_model.yaml \
-  --tasks nl2swan,inline \
-  --prompts-dir ./prompts \
-  --prompt-select-nl2swan all \
-  --prompt-select-inline all \
-  --output results \
+python -m benchmark_swan 
+  --data data/examples.json 
+  --models configs/example_model.yaml 
+  --tasks nl2swan,inline 
+  --prompts-dir ./prompts 
+  --prompt-select-nl2swan all 
+  --prompt-select-inline all 
+  --output results 
   --num-samples -1
 ```
 
@@ -54,38 +54,36 @@ Open the printed run folder and check:
 
 ```
 swan-generation/
-├─ bench/
-│  ├─ benchmark_swan.py           # main CLI
-│  ├─ adapters/
-│  │  ├─ azure.py                 # Azure OpenAI (Chat Completions)
-│  │  └─ hf_local.py              # HF local (Qwen, GCD, thinking mode)
-│  ├─ tasks/
-│  │  ├─ nl2swan.py               # NL → Swan task
-│  │  └─ inline.py                # Swan inline (single missing line)
-│  ├─ eval.py                     # exact, token-F1, edit-sim metrics
-│  ├─ prompts_loader.py           # loads prompts by name/glob
-│  ├─ utils.py                    # helpers (code-fence extraction, timestamps)
+├─ benchmark_swan.py           # main CLI
+├─ adapters/
+│  ├─ azure.py                 # Azure OpenAI (Chat Completions)
+│  └─ hf_local.py              # HF local (Qwen, GCD, thinking mode)
 │  └─ __init__.py
-├─ configs/
-│  └─ models.yaml                 # model endpoints & options
-├─ data/
-│  ├─ processed/
-│  │  └─ train_all_in_one__swan_inline_with_descriptions.json
-│  └─ example/
-│     └─ examples.json
-├─ prompts/
-│  ├─ nl2swan/                    # one .txt per prompt variant
-│  └─ inline/
-├─ grammars/
-│  └─ grammar_function_node.ebnf  # optional GCD grammar
-├─ results/                       # per-run folders (gitignored)
-├─ requirements.txt
-└─ README.md
+├─ tasks/
+│  ├─ nl2swan.py               # NL → Swan task
+│  └─ inline.py                # Swan inline (single missing line)
+│  └─ __init__.py
+├─ eval.py                     # exact, token-F1, edit-sim metrics
+├─ prompts_loader.py           # loads prompts by name/glob     
+└─ utils.py                    # helpers (code-fence extraction, timestamps)
+configs/
+└─ example_model.yaml          # model endpoints & options
+data/
+├─ examples/
+│  └─ examples.json
+prompts/
+├─ nl2swan/                    # one .txt/.md per prompt variant
+└─ inline/
+grammars/
+└─ grammar_function_node.ebnf  # optional GCD grammar
+results/                       # per-run folders (gitignored)
+requirements.txt
+README.md
 ```
 
 ## 3) Models
 
-Edit `configs/models.yaml` to add your Azure OpenAI endpoints and/or local HF models:
+Edit `configs/example_model.yaml` to add your Azure OpenAI endpoints and/or local HF models:
 
 ### Azure OpenAI (Chat Completions)
 
