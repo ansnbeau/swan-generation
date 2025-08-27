@@ -1,6 +1,6 @@
 from __future__ import annotations
 from collections import Counter
-from .utils import normalize_text, tokenize_simple
+from utils import normalize_text, tokenize_simple
 
 def levenshtein(a: str, b: str) -> int:
     la, lb = len(a), len(b)

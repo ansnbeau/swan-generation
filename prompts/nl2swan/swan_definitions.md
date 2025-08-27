@@ -64,7 +64,7 @@ For instance for variable section.
 
 References:
 
-- general definitions: [Swan definitions](./swan_definitions.md)
+- general definitions: [Swan definitions](swan_definitions.md)
 - type declarations: [Swan types](./swan_types.md)
 
 

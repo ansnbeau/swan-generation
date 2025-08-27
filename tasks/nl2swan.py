@@ -1,7 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from typing import Dict, Any, List
-from ..utils import extract_code_block
+from utils import extract_code_block
 
 @dataclass
 class GenResult:

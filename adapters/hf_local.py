@@ -13,7 +13,7 @@ try:
 except Exception:
     CFG_AVAILABLE = False
 
-from ..utils import extract_code_block, first_nonempty_line
+from utils import extract_code_block, first_nonempty_line
 
 @dataclass
 class GenResult:

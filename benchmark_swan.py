@@ -7,18 +7,13 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
 
-# utils & eval
-from .utils import timestamped_run_dir
-from .eval import eval_nl2swan, eval_inline
-from .prompts_loader import load_prompts_for_task
-
-# adapters
-from .adapters.azure import AzureChatModel as AzureModel  # chat-like
-from .adapters.hf_local import HFLocalModel as HFModel    # local HF (optional GCD)
-
-# tasks
-from .tasks import nl2swan as task_nl2swan
-from .tasks import inline as task_inline
+from utils import timestamped_run_dir
+from eval import eval_nl2swan, eval_inline
+from prompts_loader import load_prompts_for_task
+from adapters.azure import AzureChatModel as AzureModel
+from adapters.hf_local import HFLocalModel as HFModel
+from tasks import nl2swan as task_nl2swan
+from tasks import inline as task_inline
 
 
 @dataclass

@@ -33,9 +33,9 @@ pip install -r requirements.txt     # transformers, openai, etc.
 # configs/models.yaml
 
 # 3) Run with all prompts
-python -m bench.benchmark_swan \
-  --data bench/data/examples.json \
-  --models bench/configs/example_model.yaml \
+python -m benchmark_swan \
+  --data data/examples.json \
+  --models configs/example_model.yaml \
   --tasks nl2swan,inline \
   --prompts-dir ./prompts \
   --prompt-select-nl2swan all \
@@ -136,12 +136,8 @@ prompts/
 ├─ nl2swan/
 │  ├─ base.txt
 │  ├─ swan_definitions.md
-│  ├─ swan_diagrams.md
-│  └─ swan_operator.md
 └─ inline/
-   ├─ 01_minimal.txt
-   ├─ 02_exact_one_line.txt
-   └─ 03_no_fences.txt
+   ├─ complete_inline.txt
 ```
 
 - You can select all, a list by name, or globs per task at run time.
@@ -168,25 +164,25 @@ Common flags
 *All prompts for both tasks:*
 
 ```bash
-python -m bench.benchmark_swan \
-  --data data/processed/train_all_in_one__swan_inline_with_descriptions.json \
-  --models configs/models.yaml \
-  --tasks nl2swan,inline \
-  --prompts-dir ./prompts \
-  --prompt-select-nl2swan all \
-  --prompt-select-inline all \
-  --output results \
+python -m benchmark_swan 
+  --data data/example/examples.json
+  --models configs/models.yaml 
+  --tasks nl2swan,inline 
+  --prompts-dir ./prompts 
+  --prompt-select-nl2swan all 
+  --prompt-select-inline all 
+  --output results 
   --num-samples -1
 ```
 
 *Pick specific prompt files (order preserved):*
 
 ```bash
-python -m bench.benchmark_swan \
-  --data data/example/examples.json \
-  --models configs/models.yaml \
-  --tasks nl2swan \
-  --prompts-dir ./prompts \
+python -m benchmark_swan 
+  --data data/example/examples.json 
+  --models configs/models.yaml 
+  --tasks nl2swan 
+  --prompts-dir ./prompts 
   --prompt-select-nl2swan "swan_operator.md, base.txt"
 ```
 

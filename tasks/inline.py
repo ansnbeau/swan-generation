@@ -1,7 +1,7 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from typing import Dict, Any, List
-from ..utils import first_nonempty_line
+from utils import first_nonempty_line
 
 @dataclass
 class GenResult:
