@@ -34,7 +34,7 @@ pip install -r requirements.txt     # transformers, openai, etc.
 
 # 3) Run with all prompts
 python -m benchmark_swan 
-  --data data/examples.json 
+  --data data/examples/examples.json 
   --models configs/example_model.yaml 
   --tasks nl2swan,inline 
   --prompts-dir ./prompts 
@@ -172,7 +172,7 @@ python -m benchmark_swan
 
 ```bash
 python -m benchmark_swan 
-  --data data/example/examples.json 
+  --data data/examples/examples.json 
   --models configs/models.yaml 
   --tasks nl2swan 
   --prompts-dir ./prompts 
