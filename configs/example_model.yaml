@@ -16,16 +16,13 @@
 - name: qwen3-4b
   provider: hf-local
   model: Qwen/Qwen3-4B
-  temperature: 0.0
-  top_p: 1.0
+  max_new_tokens: 128
   do_sample: false
 
 # Hugging Face (local) — Qwen with GCD for NL→Swan only
 # - name: qwen3-8b
 #   provider: hf-local
 #   model: Qwen/Qwen3-8B
-#   temperature: 0.0
-#   top_p: 1.0
 #   do_sample: false
 #   use_gcd: true
 #   grammar_path: ./grammars/grammar_function_node.ebnf
