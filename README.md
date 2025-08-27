@@ -103,8 +103,6 @@ Edit `configs/example_model.yaml` to add your Azure OpenAI endpoints and/or loca
 - name: qwen3-4b
   provider: hf-local
   model: Qwen/Qwen3-4B-Instruct
-  temperature: 0.0
-  top_p: 1.0
   do_sample: false
   max_new_tokens: 256
   use_gcd: false
@@ -114,8 +112,6 @@ Edit `configs/example_model.yaml` to add your Azure OpenAI endpoints and/or loca
 - name: qwen3-8b-thinking
   provider: hf-local
   model: Qwen/Qwen3-8B-Instruct
-  temperature: 0.0
-  top_p: 1.0
   do_sample: false
   max_new_tokens: 256
   use_gcd: true
